@@ -1,0 +1,98 @@
+/* public/styles.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+body{
+  display: flex;
+  padding: 0 10px;
+  min-height: 100vh;
+  background: #1f1f1f;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+    width: 600px;
+    border-radius: 10px;
+    background-color: #fff;
+    padding: 50px;
+    margin: 50px auto;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 8px;
+}
+
+input,
+select {
+    margin-bottom: 16px;
+    padding: 8px;
+}
+
+
+
+.navbar {
+    width: 100%;
+    background-color: #2a2a2a; /* Slightly lighter than the body for contrast */
+    padding: 10px 20px;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.7); /* Neon cyan box-shadow */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Ensure navbar is above other content */
+  }
+  
+  .nav-brand {
+    color: #fff;
+    font-size: 24px;
+    font-weight: 600;
+  }
+  
+  .login-btn {
+    padding: 8px 20px;
+    background-color: #4caf50; /* A color that complements the background */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .login-btn:hover {
+    background-color: #43a047; /* Darker shade for hover effect */
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .navbar {
+      flex-direction: column;
+      padding: 20px;
+    }
+  
+    .nav-items {
+      margin-top: 10px;
+    }
+  
+    .login-btn {
+      width: 100%; /* Full width for mobile devices */
+    }
+  }
+  
+  /* Adjust body padding to accommodate navbar */
+  body {
+    padding-top: 60px; /* Adjust based on the navbar height */
+  }
+  

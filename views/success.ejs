@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="newstyle.css">
+  <title>Multi-Upload and Submit Document</title>
+</head>
+<body>
+
+  <!-- Navigation bar -->
+  <nav class="navbar">
+    <div class="nav-brand">Splanet.</div>
+    <div class="nav-items">
+      <button class="login-btn">Login</button>
+    </div>
+  </nav>
+  
+  <div class="container">
+    <p>Your Aadhar Number: <%= aadharNumber.replace(/\s+/g, '') %> </p>
+    <br>
+    <button id="upload_widget_one" class="cloudinary-button">Upload Aadhaar Card Front</button>
+    <br>
+    <!-- <button id="upload_widget_two" class="cloudinary-button">Upload Aadhaar Card Back</button> -->
+    <button id="submit_button" class="cloudinary-button" style="display:block;">Submit</button>
+    <br>
+    <div id="notification" style="color: rgb(4, 173, 117);"></div>
+    <div id="qrCode"></div>
+  </div>
+
+  <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+
+  <script type="text/javascript">
+        var aadharNumber = "<%= aadharNumber %>";
+    var uploadedUrls = []; // Array to store uploaded URLs
+
+    var widgetOptions = {
+      cloudName: "dj7rtcwwa",
+      uploadPreset: "ml_default",
+    };
+
+    // Function to handle widget uploads and store URLs
+    function handleUpload(result, widgetNumber) {
+      if (!result.error && result && result.event === "success") {
+        console.log("Done! Here is the image info from widget " + widgetNumber + ": ", result.info["url"]);
+        uploadedUrls.push(result.info["url"]);
+
+        // // Check if both uploads are done and show the submit button
+        // if (uploadedUrls.length === 2) {
+        //   document.getElementById("submit_button").style.display = 'block';
+        // }
+      }
+    }
+
+    // Function to send POST request
+    function sendPostRequest(payload) {
+      fetch('https://heydo.sc0rp10n.space/process_images/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      })
+      .then(response => response.json())
+      .then((data)=>{console.log('Aadhaar Card Number:', data["Fields"]["Aadhaar Card Number"]["value"].replace(/\s+/g, ''),"Initial Aadhaar Card Number :", aadharNumber.replace(/\s+/g, ''));
+      if(data["Fields"]["Aadhaar Card Number"]["value"].replace(/\s+/g, '') !== aadharNumber.replace(/\s+/g, '')) {
+          document.getElementById("notification").innerHTML = "<p>The Aadhaar Card does not match the initially provided number.</p>";}
+          else{ document.getElementById("notification").innerHTML = "<p>Verified.</p>";
+
+          generateQRCode(aadharNumber);
+        }
+    })
+      
+      .catch((error) => console.error('Error:', error));
+    }
+
+    // Configure the first upload widget
+    var myWidgetOne = cloudinary.createUploadWidget(widgetOptions, function(error, result) { handleUpload(result, 1); });
+
+    // Configure the second upload widget
+    // var myWidgetTwo = cloudinary.createUploadWidget(widgetOptions, function(error, result) { handleUpload(result, 2); });
+
+    // Attach event listeners to buttons
+    document.getElementById("upload_widget_one").addEventListener("click", function() { myWidgetOne.open(); }, false);
+    // document.getElementById("upload_widget_two").addEventListener("click", function() { myWidgetTwo.open(); }, false);
+
+    function generateQRCode(aadharNumber) {
+      var cleanedAadharNumber = aadharNumber.replace(/\s+/g, '');
+      var qrCodeURL = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${cleanedAadharNumber}`;
+      var qrImage = document.createElement('img');
+      qrImage.src = qrCodeURL;
+      qrImage.alt = 'QR Code';
+      qrImage.title = 'Your unique Aadhar QR Code';
+      document.getElementById('qrCode').innerHTML = ''; // Clear existing QR code if any
+      document.getElementById('qrCode').appendChild(qrImage);
+      document.querySelector('.container').classList.add('final');
+
+      var settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": "https://api.authkey.io/request?authkey=f07d752f04f9e465&mobile=9818067608&country_code=91&sms=Hello%2C%20your%20OTP%20is%201234&sender=AUTHKY",
+      "method": "GET"
+    }
+
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+    });
+     
+    }
+
+
+    // Handle the submit button click
+    document.getElementById("submit_button").addEventListener("click", function() {
+      var payload = {
+        "Images": {
+          "Aadhaar Card Front": {
+            "id": "6",
+            "base64": uploadedUrls[0]
+          }
+        },
+        "Fields": {
+          "Aadhaar Card Number": {"id": "6969", "value": ""}
+        }
+      };
+      
+      sendPostRequest(payload);
+    }, false);
+
+    // New API SMS CODE
+    
+
+
+  </script>
+</body>
+</html>

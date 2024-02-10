@@ -1,0 +1,88 @@
+<!-- views/index.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
+    <title>Form Submission</title>
+</head>
+
+<body>
+    <!-- Navigation bar -->
+  <nav class="navbar">
+    <div class="nav-brand">Splanet.</div>
+    <div class="nav-items">
+      <button class="login-btn">Login</button>
+    </div>
+  </nav>
+
+    <div class="container">
+        <h2>E-KYC Verification</h2>
+        <form action="/submitForm" method="post">
+            <label for="name">Name (As per Aadhar card)*</label>
+            <input type="text" name="name" required>
+
+            <label for="phoneNumber">Phone Number*</label>
+            <input type="tel" name="phoneNumber" required>
+
+            <label for="shopName">Address of Shop/Organisation*</label>
+            <input type="text" name="shopName" required>
+
+            <label for="websiteUrl">Website URL</label>
+            <input type="url" name="websiteUrl">
+
+            <label for="categories">Select Category (Can choose more than one)</label>
+            <!-- <select name="categories" multiple> -->
+            <!-- <option value="Grocery">Grocery</option> -->
+            <!-- Add other options here -->
+            <!-- <option value="Other">Other</option> -->
+            <!-- </select> -->
+
+            <select name="categories" id="categories" multiple required>
+                <option value="Grocery">Grocery</option>
+                <option value="Food & Beverage">Food & Beverage</option>
+                <option value="Fashion">Fashion</option>
+                <option value="Beauty & Personal Care">Beauty & Personal Care</option>
+                <option value="Home & Kitchen">Home & Kitchen</option>
+                <option value="Garden & Outdoor Items">Garden & Outdoor Items</option>
+                <option value="Baby Care">Baby Care</option>
+                <option value="Electronics & Appliances">Electronics & Appliances</option>
+                <option value="Toys & Games">Toys & Games</option>
+                <option value="Sports & Sports Equipment">Sports & Sports Equipment</option>
+                <option value="Agri/ Farm Produce/ Output">Agri/ Farm Produce/ Output</option>
+                <option value="Agri Input">Agri Input</option>
+                <option value="Hardware and Industrial Equipment">Hardware and Industrial Equipment</option>
+                <option value="Health & Wellness (Products)">Health & Wellness (Products)</option>
+                <option value="Medical & Lab Supplies">Medical & Lab Supplies</option>
+                <option value="Chemicals">Chemicals</option>
+                <option value="Auto Parts & Components/ Automotive Supplies">Auto Parts & Components/ Automotive Supplies</option>
+                <option value="Fibres & Yarns">Fibres & Yarns</option>
+                <option value="Alloys, Metal & Metal Products">Alloys, Metal & Metal Products</option>
+                <option value="Office Stationery & Supplies">Office Stationery & Supplies</option>
+                <option value="Building & Construction Supplies">Building & Construction Supplies</option>
+                <option value="Books & Stationery">Books & Stationery</option>
+                <option value="Pets & Pet Supplies">Pets & Pet Supplies</option>
+                <option value="Health & Wellness (Services)">Health & Wellness (Services)</option>
+                <option value="Financial & Legal Services">Financial & Legal Services</option>
+                <option value="Repair, Maintenance and At Home Services">Repair, Maintenance and At Home Services</option>
+                <option value="Education & Training">Education & Training</option>
+                <option value="Freight & Logistics Services">Freight & Logistics Services</option>
+                <option value="Telecom Services">Telecom Services</option>
+                <option value="Travel, Tourism & Entertainment Services">Travel, Tourism & Entertainment Services</option>
+                <option value="Mobility">Mobility</option>
+                <!-- Add more options as needed -->
+            </select>
+
+
+            <label for="aadharNumber">Aadhar Number*</label>
+            <input type="text" name="aadharNumber" required>
+            <a href="/success">   
+            <button type="submit" onclick="">Submit</button>
+             </a> 
+        </form>
+    </div>
+</body>
+
+</html>

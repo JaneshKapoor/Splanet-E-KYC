@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="user-button"></div>
+    <script>
+      const script = document.createElement('script');
+      script.setAttribute('data-clerk-publishable-key', pk_test_dW5pdGVkLWxlZWNoLTE5LmNsZXJrLmFjY291bnRzLmRldiQ);
+      script.async = true;
+      script.src = `https://[your-domain].clerk.accounts.dev/npm/@clerk/clerk-js@latest/dist/clerk.browser.js`;
+     
+      script.addEventListener('load', async function () {
+        await window.Clerk.load();
+     
+        const userButtonComponent = document.querySelector('#user-button');
+     
+        window.Clerk.mountUserButton(userButtonComponent);
+      });
+      document.body.appendChild(script);
+    </script>
+</body>
+</html>
